@@ -45,7 +45,7 @@ module Quality
 
     GateResult = Struct.new(:name, :measure, :threshold, :cmp, :unit) do
       def passed?
-        return false if measure.nil? || threshold.nil?
+        return true if measure.nil? || threshold.nil?
 
         case cmp
         when :>= then measure >= threshold

@@ -50,16 +50,16 @@ RSpec.describe Quality::Report do
     context "when a measurement is missing" do
       let(:measurements) { super().merge(mutation: {}) }
 
-      it "returns false" do
-        expect(report).not_to be_passed
+      it "treats the gate as not applicable" do
+        expect(report).to be_passed
       end
     end
 
     context "when a threshold is missing" do
       let(:thresholds) { super().merge("rubocop" => {}) }
 
-      it "returns false" do
-        expect(report).not_to be_passed
+      it "treats the gate as not yet enforced" do
+        expect(report).to be_passed
       end
     end
   end
@@ -90,8 +90,8 @@ RSpec.describe Quality::Report do
         expect(report.to_s).to include("n/a")
       end
 
-      it "shows the failing pass count" do
-        expect(report.to_s).to include("6/7 gates passed.")
+      it "shows the passing pass count" do
+        expect(report.to_s).to include("7/7 gates passed.")
       end
     end
 

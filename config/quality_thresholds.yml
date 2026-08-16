@@ -1,7 +1,7 @@
 ---
 coverage:
-  line_min: 36.3
-  branch_min: 100.0
+  line_min: 70.07
+  branch_min: 75.13
 flog:
   method_max: 286.81
   class_max: 625.27

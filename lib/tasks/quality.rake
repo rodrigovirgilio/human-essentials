@@ -43,7 +43,7 @@ namespace :quality do
   desc "Run RSpec with coverage; emit JSON to tmp/quality/coverage.json"
   task coverage: :environment do
     out_path = quality_dir.join("coverage.json")
-    sh "bundle exec rspec --format progress --exclude-pattern '{spec/system/**{,/*/**}/*_spec.rb,spec/requests/**{,/*/**}/*_spec.rb}' > /dev/null 2>&1 || true"
+    sh "QUALITY_COVERAGE=true bundle exec rspec --format progress --exclude-pattern 'spec/system/**,spec/requests/**' > /dev/null 2>&1 || true"
 
     last_run = Rails.root.join("coverage/.last_run.json")
     parsed = Quality::CoverageParser.new(last_run).parse

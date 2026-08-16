@@ -10,6 +10,19 @@ SimpleCov.start "rails" do
   add_filter "/lib/tasks/"
 end
 
+if ENV["QUALITY_COVERAGE"] == "true"
+  SimpleCov.use_merging false
+  SimpleCov.external_at_exit = true
+  at_exit do
+    next unless SimpleCov.running
+
+    result = SimpleCov.result
+    SimpleCov::LastRun.write(
+      result: result.coverage_statistics.transform_values { |stats| stats.percent.floor(2) }
+    )
+  end
+end
+
 require File.expand_path("../config/environment", __dir__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
